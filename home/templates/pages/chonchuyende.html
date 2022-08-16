@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>
+    Chọn chuyên đề
+  </title>
+  <link rel="stylesheet" type="text/css" href="static/main.css">
+</head>
+<body>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <p>Chọn chuyên đề:</p>
+    <select name="namechuyende">
+      {% for value in LISTTOPIC %}
+      <option value="{{value.0}}">{{value.1}}</option>
+      {% endfor %}
+      <p><input type="submit" name="send" value="Xác nhận"></p>
+    </form>
+  </body>
+  </html>

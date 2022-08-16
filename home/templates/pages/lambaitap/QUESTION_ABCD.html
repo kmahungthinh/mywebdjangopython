@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LÀM BÀI TẬP</title>
+</head>
+<body>
+    <h3>{{data2.0}} {{data2.1}} Yêu cầu: {{data2.2}}</h3>
+    <h4>Câu hỏi số: {{ page.number }}/{{ data2.3 }}</h4>
+
+    {% for value in page.object_list %}
+    <p>Câu hỏi</p>
+	<p>{{value.0}}</p>
+	<p>Các đáp án gợi ý cho câu hỏi</p>
+	<p>{{value.1}}</p>
+    <p>Đáp án bạn chọn</p>
+	<form action="" method="POST">
+		{% csrf_token %}
+		<div class ="form-group">
+			<input type="radio" value="A" name="ABCD" ><label>A</label>
+			<input type="radio" value="B" name="ABCD" ><label>B</label>
+			<input type="radio" value="C" name="ABCD" ><label>C</label>
+			<input type="radio" value="D" name="ABCD" ><label>D</label>
+            <p><button type="submit" name="kiemtra">Kiểm tra</button>&emsp;&emsp;<button type="submit" name="goiy">Gợi ý</button>
+            &emsp;&emsp;<button type="submit" name="quaylai">Quay lại</button></p>
+        </div>
+    {% for message in messages %}
+    <p id="messages " class="texta">{{message}}</p>
+    {% endfor %}
+   {% include "pages/lambaitap/PhanTrang.html" %}
+    </form>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,68 @@
+<html>
+<head>
+	<title>WEB của Thịnh</title>
+	<link rel="stylesheet" type="text/css" href="static/main.css">
+</head>
+<body>
+
+	<div class="col-sm-10">
+                {% if user.username %}
+                    <h3>Xin chào {{user.username}}</h3>
+                    <p><a href="{% url 'logout' %}">Đăng xuất</a></p>
+                {% else %}
+                    <p><a href="{% url 'logout' %}">Đăng xuất</a>|<a href="{% url 'login' %}">Đăng nhập</a></p>
+                {% endif %}
+					 {% for message in messages %}
+   					 <h3 id="messages " class="texta">{{message}}</h3>
+   					 {% endfor %}
+            	</div>
+
+
+	<div>
+
+		<a href="{% url 'ChonChuyenDe' %}">Học tiếng anh</a>&emsp;&emsp;
+		<!--<a href="#news">Chơi tiến lên Miền Nam</a>
+		<a href="#contact">Chat với bot</a>-->
+		<a href="#giaimatma">Tool Giải Thuật Mật Mã</a>
+		<div>
+			
+			<img src="static/images/anhdaidien.png" style="max-height:150px"></img>
+			
+		</div>
+		<div>
+			<p>Tên: Vũ Hưng Thịnh</p>
+			<p>Sinh năm: 2000</p>
+			<p>Quê quán: Thái Bình</p>
+			<p>Thông tin thêm: <a href="https://github.com/kmahungthinh">github</a>
+
+				<a href="https://www.youtube.com/channel/UCvw9Wm7nimgfMlqk6bdRkZQ">youtube</a></p>
+				<!--<p>Bạn thấy trang web có OK không?</p>
+				<p>Có <input type="radio" name="oknha"> Không<input type="radio" name="oknha"></p>
+				<p title="gửi đánh giá trang web của thịnh"><button>Gửi đánh giá</button></p>-->
+				
+			</div>
+		</div>
+
+		<center><h2>Thank A Lot<h2/></center>
+			<center><table></center>
+				<thead>
+					<th></th>
+					<th></th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr>
+						<td><img src="static/images/djangopython.png" style="max-height: 120px"></td>
+						<td><img src="static/images/htmlcss.png" style="max-height: 100px"></td>
+						<td><img src="static/images/youtubecommunity.png" style="max-height: 120px"></td>
+					</tr> 
+					<tr>
+						<td><img src="static/images/AI.png" style="max-height: 120px"></td>
+						<td><img src="static/images/mongodb.png" style="max-height: 120px"></td>
+						<td><img src="static/images/stackoverflow.png" style="max-height: 120px"></td>
+					</tr>
+				</tbody>
+			</table>
+
+</body>
+		</html>

@@ -1,0 +1,19 @@
+<html>
+<head>
+	<title>
+		Chọn Exercise
+	</title>
+	<link rel="stylesheet" type="text/css" href="static/main.css">
+</head>
+<body>
+	<form action="" method="POST">
+    {% csrf_token %}
+    <p>Chọn Exercise:</p>
+    <select name="nameexercise" >
+      {% for value in LISTEXERCISE %}
+      <option value="{{value.0}}">{{value.1}}</option>
+      {% endfor %}
+      <p><input type="submit" name="send" value="Xác nhận"></p>
+    </form>
+</body>
+</html>

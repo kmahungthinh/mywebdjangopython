@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LÀM BÀI TẬP</title>
+
+</head>
+<body>
+    <h3>{{data2.0}} {{data2.1}} Yêu cầu: {{data2.2}}</h3>
+    <h4>Câu hỏi số: {{ page.number }}/{{ data2.3 }}</h4>
+
+    {% for value in page.object_list %}
+    <p>Câu hỏi</p>
+	<p>{{value.0}}</p>
+    <p>Câu trả lời của bạn</p>
+
+
+	<form action="" method="POST">
+		{% csrf_token %}
+        {% for i in value.2%}
+		<input type="text" name={{i}} size="25" id="numb">
+        {% endfor %}
+        </br>
+        <p><button type="submit" name="kiemtra" >Kiểm tra</button>&emsp;&emsp;<button type="submit" name="goiy">Gợi ý</button>
+            &emsp;&emsp;<button type="submit" name="quaylai">Quay lại</button></p>
+
+         {% for message in messages %}
+         <p id="messages " class="texta">{{message}}</p>
+         {% endfor %}
+    {% include "pages/lambaitap/PhanTrang.html" %}
+    </div>
+    </form>
+    {% endfor %}
+</body>
+</html>
