@@ -100,7 +100,7 @@ def pageChonQuestion_ABCD(request):
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
       if request.method == 'POST' and 'goiy' in request.POST:
          gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
-         goiYDapAn = jSonAll[gt.TopicChoose][gt.Exercise]["@suggest"][page.number - 1].lstrip("^")
+         goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
          gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
