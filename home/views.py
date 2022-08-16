@@ -13,6 +13,18 @@ jSonAll =ast.literal_eval(jSonAll)
 dicDataPerson={}
 def pageIndex(request):
    return render(request, 'pages/index.html')
+from .forms import RegistrationForm
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+def pageDangKy(request):
+    form = RegistrationForm()
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Bạn đã đăng ký thành công!')
+            return HttpResponseRedirect('/')
+    return render(request, 'pages/dangky.html', {'form': form})
 def pageChonChuyenDe(request):
 
    if str(request.user) == "AnonymousUser":
@@ -103,7 +115,7 @@ def pageChonQuestion_ABCD(request):
          goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
-         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+
          return redirect('ChonExercise')
    return render(request,'pages/lambaitap/QUESTION_ABCD.html',context)
 
@@ -148,7 +160,7 @@ def pageChonABCD(request):
          goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
-         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+
          return redirect('ChonExercise')
    return render(request, 'pages/lambaitap/ABCD.html', context)
 
@@ -193,7 +205,7 @@ def pageChonTEXT(request):
          goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
-         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+
          return redirect('ChonExercise')
    return render(request, 'pages/lambaitap/TEXT.html', context)
 
@@ -240,7 +252,6 @@ def pageChonBIENDOICAU(request):
          goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
-         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          return redirect('ChonExercise')
    return render(request,'pages/lambaitap/BIENDOICAU.html',context)
 def pageTimVaSuaLoiSai(request):
@@ -279,12 +290,12 @@ def pageTimVaSuaLoiSai(request):
             else:
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
 
-         if request.method == 'POST' and 'goiy' in request.POST:
+      if request.method == 'POST' and 'goiy' in request.POST:
             gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
             goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
             messages.info(request, goiYDapAn)
-         if request.method == 'POST' and 'quaylai' in request.POST:
-            gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+      if request.method == 'POST' and 'quaylai' in request.POST:
+
             return redirect('ChonExercise')
    return render(request, 'pages/lambaitap/TIMVASUALOISAI.html', context)
 

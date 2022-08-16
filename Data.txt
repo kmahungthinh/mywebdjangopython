@@ -4489,18 +4489,18 @@
     "@exercise3": {
       "@answer": [
         
-        "^Đáp án: to find, Giải thích chi tiết: ",
-        "^Đáp án: to finish, Giải thích chi tiết: ",
-        "^Đáp án: to finish, Giải thích chi tiết: ",
-        "^Đáp án: to use, Giải thích chi tiết: ",
-        "^Đáp án: to write, Giải thích chi tiết: ",
-        "^Đáp án: to touch, Giải thích chi tiết: ",
-        "^Đáp án: to know, Giải thích chi tiết: ",
-        "^Đáp án: to keep, Giải thích chi tiết: ",
-        "^Đáp án: to pass, Giải thích chi tiết: ",
-        "^Đáp án: to take, Giải thích chi tiết:"
+        "&*|to find",
+        "&*|to finish",
+        "&*|to complete",
+        "&*|to use",
+        "&*|to write",
+        "&*|to touch",
+        "&*|to know ",
+        "&*|to keep",
+        "&*|to pass",
+        "&*|to take"
       ],
-      "@check": "BIENDOICAU",
+      "@check": "TEXT",
       "@question": [
         
         "#1. Mr. White didn't have any money, so he decided ________ a job.%find|know|use|take|pass|write|touch|finish|keep|complete",
