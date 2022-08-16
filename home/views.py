@@ -91,7 +91,7 @@ def pageChonQuestion_ABCD(request):
          else:
             dapAnChon = dapAnChon[0]
             print("Chọn tại page num: ", page.number)
-            dapAnChinhXac = jSonAll[gt.TopicChoose][gt.Exercise]["@answer"][page.number - 1].lstrip("&")
+            dapAnChinhXac = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@answer"][page.number - 1].lstrip("&")
             print("Chọn án bạn chọn: ", dapAnChon)
             print("Đáp án đúng ở câu này: ", dapAnChinhXac)
             if dapAnChon == dapAnChinhXac:
@@ -172,7 +172,7 @@ def pageChonTEXT(request):
          'data2': dataLamBaiTap2,
       }
       if request.method == 'POST' and 'kiemtra' in request.POST:
-         print("Chọn tại page num: ", page.number)
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          dapAnChon = ""
          for i in dataLamBaiTap1[page.number - 1][2]:
             dapAnChon += "*|" + request.POST.getlist(i)[0]
@@ -189,9 +189,11 @@ def pageChonTEXT(request):
             else:
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
       if request.method == 'POST' and 'goiy' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          return redirect('ChonExercise')
    return render(request, 'pages/lambaitap/TEXT.html', context)
 
@@ -217,6 +219,7 @@ def pageChonBIENDOICAU(request):
          'data2': dataLamBaiTap2,
       }
       if request.method == 'POST' and 'kiemtra' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          print("Chọn tại page num: ", page.number)
          dapAnChon = ""
          for i in dataLamBaiTap1[page.number - 1][3]:
