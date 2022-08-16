@@ -204,8 +204,6 @@ def pageChonBIENDOICAU(request):
       return redirect('Index')
    else:
       gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
-      gt.TopicChoose = dicDataPerson[request.user]['TENINDEXJSONTOPIC']
-      gt.ExerciseChoose = dicDataPerson[request.user]['TENINDEXJSONEXERCISE']
       dataLamBaiTap1 = layDataPart1LamBaiTapBienDoiCau(jSonAll, gt.TopicChoose, gt.ExerciseChoose)
       book_paginator = Paginator(dataLamBaiTap1, 1)
       page_num = request.GET.get('page')
