@@ -70,21 +70,21 @@ def pageChonQuestion_ABCD(request):
    else:
       gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
       dataLamBaiTap1 = layDataPart1LamBaiTapQuestionABCD(jSonAll, gt.TopicChoose
-                                                         , gt.Exercise)
+                                                         , gt.ExerciseChoose)
       book_paginator = Paginator(dataLamBaiTap1, 1)
       page_num = request.GET.get('page')
       page = book_paginator.get_page(page_num)
 
       dataLamBaiTap2 = [gt.TopicChoose.lstrip("@")
-         , gt.Exercise.lstrip("@")
-         , jSonAll[gt.TopicChoose][gt.Exercise]["@title"], str(book_paginator.count)]
+         , gt.ExerciseChoose.lstrip("@")
+         , jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@title"], str(book_paginator.count)]
 
       context = {
          'page': page,
          'data2': dataLamBaiTap2
       }
       if request.method == 'POST' and 'kiemtra' in request.POST:
-
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          dapAnChon = request.POST.getlist('ABCD')
          if len(dapAnChon) == 0:
             messages.info(request, 'Xin lỗi! Bạn cần chọn 1 đáp án')
@@ -99,9 +99,11 @@ def pageChonQuestion_ABCD(request):
             else:
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
       if request.method == 'POST' and 'goiy' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          goiYDapAn = jSonAll[gt.TopicChoose][gt.Exercise]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          return redirect('ChonExercise')
    return render(request,'pages/lambaitap/QUESTION_ABCD.html',context)
 
@@ -126,7 +128,7 @@ def pageChonABCD(request):
          'data2': dataLamBaiTap2
       }
       if request.method == 'POST' and 'kiemtra' in request.POST:
-
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          dapAnChon = request.POST.getlist('ABCD')
          if len(dapAnChon) == 0:
             messages.info(request, 'Xin lỗi! Bạn cần chọn 1 đáp án')
@@ -142,9 +144,11 @@ def pageChonABCD(request):
             else:
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
       if request.method == 'POST' and 'goiy' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          return redirect('ChonExercise')
    return render(request, 'pages/lambaitap/ABCD.html', context)
 
@@ -154,15 +158,14 @@ def pageChonTEXT(request):
       messages.info(request, 'Bạn cần đăng nhập')
       return redirect('Index')
    else:
-      temp1 = dicDataPerson[request.user]['TENINDEXJSONTOPIC']
-      temp2 = dicDataPerson[request.user]['TENINDEXJSONEXERCISE']
-      dataLamBaiTap1 = layDataPart1LamBaiTapTEXT(jSonAll, temp1, temp2)
+      gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+      dataLamBaiTap1 = layDataPart1LamBaiTapTEXT(jSonAll, gt.TopicChoose, gt.ExerciseChoose)
       book_paginator = Paginator(dataLamBaiTap1, 1)
       page_num = request.GET.get('page')
       page = book_paginator.get_page(page_num)
 
-      dataLamBaiTap2 = [temp1.lstrip("@"), temp2.lstrip("@")
-         , jSonAll[temp1][temp2]["@title"], str(book_paginator.count)]
+      dataLamBaiTap2 = [gt.TopicChoose.lstrip("@"), gt.ExerciseChoose.lstrip("@")
+         , jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@title"], str(book_paginator.count)]
 
       context = {
          'page': page,
@@ -177,7 +180,7 @@ def pageChonTEXT(request):
             messages.info(request, "Xin lỗi! Trường nhập bất thường")
          else:
             DataDapAnKhaDung = layDataDapAnKhaDung(
-               jSonAll[temp1][temp2]["@answer"][page.number - 1])
+               jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@answer"][page.number - 1])
 
             print("Chọn án bạn chọn: ", dapAnChon)
             check = dapAnChon.replace("’", "'") in DataDapAnKhaDung
@@ -186,7 +189,7 @@ def pageChonTEXT(request):
             else:
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
       if request.method == 'POST' and 'goiy' in request.POST:
-         goiYDapAn = jSonAll[temp1][temp2]["@suggest"][page.number - 1].lstrip("^")
+         goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
          return redirect('ChonExercise')
@@ -198,15 +201,16 @@ def pageChonBIENDOICAU(request):
       messages.info(request, 'Bạn cần đăng nhập')
       return redirect('Index')
    else:
-      temp1 = dicDataPerson[request.user]['TENINDEXJSONTOPIC']
-      temp2 = dicDataPerson[request.user]['TENINDEXJSONEXERCISE']
-      dataLamBaiTap1 = layDataPart1LamBaiTapBienDoiCau(jSonAll, temp1, temp2)
+      gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+      gt.TopicChoose = dicDataPerson[request.user]['TENINDEXJSONTOPIC']
+      gt.ExerciseChoose = dicDataPerson[request.user]['TENINDEXJSONEXERCISE']
+      dataLamBaiTap1 = layDataPart1LamBaiTapBienDoiCau(jSonAll, gt.TopicChoose, gt.ExerciseChoose)
       book_paginator = Paginator(dataLamBaiTap1, 1)
       page_num = request.GET.get('page')
       page = book_paginator.get_page(page_num)
 
-      dataLamBaiTap2 = [temp1.lstrip("@"), temp2.lstrip("@")
-         , jSonAll[temp1][temp2]["@title"], str(book_paginator.count)]
+      dataLamBaiTap2 = [gt.TopicChoose.lstrip("@"), gt.ExerciseChoose.lstrip("@")
+         , jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@title"], str(book_paginator.count)]
 
       context = {
          'page': page,
@@ -221,7 +225,7 @@ def pageChonBIENDOICAU(request):
             messages.info(request, "Xin lỗi! Trường nhập bất thường")
          else:
             DataDapAnKhaDung = layDataDapAnKhaDung(
-               jSonAll[temp1][temp2]["@answer"][page.number - 1])
+               jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@answer"][page.number - 1])
 
             print("Chọn án bạn chọn: ", dapAnChon)
             check1 = dapAnChon.replace("’", "'") in DataDapAnKhaDung
@@ -231,9 +235,11 @@ def pageChonBIENDOICAU(request):
             else:
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
       if request.method == 'POST' and 'goiy' in request.POST:
-         goiYDapAn = jSonAll[temp1][temp2]["@suggest"][page.number - 1].lstrip("^")
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+         goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
          messages.info(request, goiYDapAn)
       if request.method == 'POST' and 'quaylai' in request.POST:
+         gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
          return redirect('ChonExercise')
    return render(request,'pages/lambaitap/BIENDOICAU.html',context)
 def pageTimVaSuaLoiSai(request):
@@ -241,15 +247,14 @@ def pageTimVaSuaLoiSai(request):
       messages.info(request, 'Bạn cần đăng nhập')
       return redirect('Index')
    else:
-      temp1 = dicDataPerson[request.user]['TENINDEXJSONTOPIC']
-      temp2 = dicDataPerson[request.user]['TENINDEXJSONEXERCISE']
-      dataLamBaiTap1 = layDataPart1LamBaiTapTEXT(jSonAll, temp1, temp2)
+      gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+      dataLamBaiTap1 = layDataPart1LamBaiTapTEXT(jSonAll, gt.TopicChoose, gt.ExerciseChoose)
       book_paginator = Paginator(dataLamBaiTap1, 1)
       page_num = request.GET.get('page')
       page = book_paginator.get_page(page_num)
 
-      dataLamBaiTap2 = [temp1.lstrip("@"), temp2.lstrip("@")
-         , jSonAll[temp1][temp2]["@title"], str(book_paginator.count)]
+      dataLamBaiTap2 = [gt.TopicChoose.lstrip("@"), gt.ExerciseChoose.lstrip("@")
+         , jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@title"], str(book_paginator.count)]
 
       context = {
          'page': page,
@@ -264,7 +269,7 @@ def pageTimVaSuaLoiSai(request):
             messages.info(request, "Xin lỗi! Trường nhập bất thường")
          else:
             DataDapAnKhaDung = layDataDapAnKhaDung(
-               jSonAll[temp1][temp2]["@answer"][page.number - 1])
+               jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@answer"][page.number - 1])
 
             print("Chọn án bạn chọn: ", dapAnChon)
             check = dapAnChon.replace("’", "'") in DataDapAnKhaDung
@@ -274,9 +279,11 @@ def pageTimVaSuaLoiSai(request):
                messages.info(request, 'Rất tiếc! Bạn đã làm sai')
 
          if request.method == 'POST' and 'goiy' in request.POST:
-            goiYDapAn = jSonAll[temp1][temp2]["@suggest"][page.number - 1].lstrip("^")
+            gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
+            goiYDapAn = jSonAll[gt.TopicChoose][gt.ExerciseChoose]["@suggest"][page.number - 1].lstrip("^")
             messages.info(request, goiYDapAn)
          if request.method == 'POST' and 'quaylai' in request.POST:
+            gt = UserDataEnglish.objects.get(id=UserDataEnglish.objects.get(nguoiDung=request.user).pk)
             return redirect('ChonExercise')
    return render(request, 'pages/lambaitap/TIMVASUALOISAI.html', context)
 
