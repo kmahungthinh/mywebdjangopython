@@ -1,11 +1,12 @@
 
 from django.shortcuts import render, redirect
 from .englishservice import *
-from django.contrib import messages
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
 from django.http import Http404
-from home.models import UserDataEnglish
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import *
+from home.models import *
 import ast
 with open('Data.txt', 'r', encoding='utf-8') as fileInp:
    jSonAll = fileInp.read()
@@ -16,6 +17,12 @@ def pageIndex(request):
 from .forms import RegistrationForm
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from rest_framework.views import APIView
+class layToanBoDataJsonEnglishAPIView(APIView):
+   def get(self, request):
+      json = ServerDataEnglish.objects.all()
+      mydata = layToanBoDataJsonEnglishSerializer(json, many=True)
+      return Response(data=mydata.data, status=status.HTTP_200_OK)
 def pageDangKy(request):
     form = RegistrationForm()
     if request.method == 'POST':
