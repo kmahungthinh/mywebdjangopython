@@ -112,8 +112,8 @@ temp=""
 for i in ax:
     temp=temp+i
 print(type(temp))
-xx=""+12+"" 
-giaTriCapNhat[1]=xx 
+#xx=""+12+"" 
+giaTriCapNhat[1]=noiDungToanBoFile 
 truongCapNhat[1]='DataJson'
 
 a.boSung1BanGhiDuLieuVaoCSDL(conn,"home_serverdataenglish",giaTriCapNhat,truongCapNhat,1)
