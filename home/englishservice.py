@@ -4,8 +4,8 @@ import urllib.parse
 import itertools
 
 '''class JSonAll():
-    username = urllib.parse.quote_plus("thinhkma")
-    password = urllib.parse.quote_plus("qaz@123kmA")
+    username = urllib.parse.quote_plus("")
+    password = urllib.parse.quote_plus("")
     # URL kết nối
     url = "mongodb+srv://{}:{}@cluster0.mntkkke.mongodb.net/?retryWrites=true&w=majority".format(username, password)
     cluster = MongoClient(url)
