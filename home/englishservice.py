@@ -126,13 +126,13 @@ def layDataDapAnKhaDung(answerFireBase):
     for i in range(1, soDapDapAnTrong1Truong + 1):
         listTangDanDapAnTrong1Truong.append(i)
 
-    # 3) Lấy Danh sách chỉnh hợp lặp của 1,2 xếp mỗi bản ghi 3 vị trí số kết quả là 2^3
+    # 5) Lấy Danh sách chỉnh hợp lặp của. Ví dụ có danh sách 1,2 xếp mỗi bản ghi 3 vị trí => số kết quả là 2^3
     chinhHopLapChapKCuaN = list(itertools.product(listTangDanDapAnTrong1Truong, repeat=soTruongNhapDapAn))
 
     print("Danh sách chỉnh hợp lặp")
     print(chinhHopLapChapKCuaN)
 
-    # 4) Kết hợp tham số 1 và 2 đưa ra danh sách chỉnh hợp lặp
+    # 6) Kết hợp tham số 1 và 2 đưa ra danh sách chỉnh hợp lặp
     dapAnDungKhaDung = []
     for i in list(chinhHopLapChapKCuaN):
         viTriCuaSoLuongDapAn = 0
